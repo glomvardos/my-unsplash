@@ -1,18 +1,7 @@
-import { useEffect, useState } from 'react'
+import useWidth from '../../hooks/useWidth'
 
 export default function AddPhoto({ onClickHandler }: Props) {
-  const [width, setWidth] = useState<number>(0)
-
-  const getWidthHandler = () => {
-    setWidth(window.innerWidth)
-  }
-
-  useEffect(() => {
-    getWidthHandler()
-    window.addEventListener('resize', getWidthHandler)
-
-    return () => window.removeEventListener('resize', getWidthHandler)
-  }, [])
+  const { width } = useWidth()
 
   return (
     <button
