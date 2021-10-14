@@ -1,6 +1,6 @@
 import useWidth from '../../hooks/useWidth'
 
-export default function AddPhoto({ onClickHandler }: Props) {
+export default function AddPhotoBtn({ onClickHandler }: Props) {
   const { width } = useWidth()
 
   return (

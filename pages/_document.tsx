@@ -13,6 +13,7 @@ class MyDocument extends Document {
           />
         </Head>
         <body>
+          <div id='overlay' />
           <Main />
           <NextScript />
         </body>
