@@ -12,7 +12,7 @@ export default function Modal({ children, onClickHandler }: Props) {
         overlay
       )}
       {ReactDOM.createPortal(
-        <div className='fixed z-20 top-2/4 left-2/4 transform -translate-x-2/4 -translate-y-2/4'>
+        <div className='fixed max-w-[340px] xs:max-w-[450px] sm:max-w-[620px] w-full bg-white rounded-xl p-6 z-20 top-2/4 left-2/4 transform -translate-x-2/4 -translate-y-2/4'>
           {children}
         </div>,
         overlay
