@@ -12,13 +12,31 @@ export default function AddNewPhoto() {
   const [labelIsReq, setLabelIsReq] = useState<boolean>(false)
   const [imgUrlIsReq, setImgUrlIsReq] = useState<boolean>(false)
 
-  const onSubmitHandler = (event: React.FormEvent) => {
+  const onSubmitHandler = async (event: React.FormEvent) => {
     event.preventDefault()
 
-    if (label.trim() === '' || imgUrl.trim() === '') return
+    if (label.trim() === '' || imgUrl.trim() === '') {
+      setLabelIsReq(true)
+      setImgUrlIsReq(true)
+      return
+    }
 
-    setLabelIsReq(false)
-    setImgUrlIsReq(false)
+    const response = await fetch('/api/postImage', {
+      method: 'POST',
+      body: JSON.stringify({
+        label,
+        imgUrl,
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+
+    if (response.ok) {
+      setLabelIsReq(false)
+      setImgUrlIsReq(false)
+      showModalHandler()
+    }
   }
 
   const onBlurHandlerLabel = () => {

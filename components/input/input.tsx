@@ -12,7 +12,13 @@ export default function Input({
 }: Props) {
   return (
     <div className='mb-[1.1875rem] flex  flex-col'>
-      <label className='text-[#4F4F4F] text-sm font-medium mb-[0.625rem]'>{label}</label>
+      <label
+        className={`${
+          isRequired ? 'text-[#ff4136]' : 'text-[#4F4F4F]'
+        } text-sm font-medium mb-[0.625rem]`}
+      >
+        {label}
+      </label>
       <input
         className={`outline-none p-[1.125rem] border-[1px] rounded-xl ${
           isRequired ? 'border-[#ff4136]' : 'border-[#4F4F4F]'
@@ -24,7 +30,6 @@ export default function Input({
         onBlur={onBlurHandler}
         onFocus={onFocusHandler}
       />
-      {isRequired && <p className='text-xs mt-1 text-[#ff4136]'>{label} is required</p>}
     </div>
   )
 }
