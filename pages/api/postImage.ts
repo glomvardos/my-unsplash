@@ -12,5 +12,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
   const { label, imgUrl } = req.body
 
+  const response = await fetch(imgUrl)
+
+  console.log(response)
+
   res.status(200).json({ message: 'Success' })
 }
