@@ -11,9 +11,12 @@ export default function AddNewPhoto() {
   const [imgUrl, setImgUrl] = useState<string>('')
   const [labelIsReq, setLabelIsReq] = useState<boolean>(false)
   const [imgUrlIsReq, setImgUrlIsReq] = useState<boolean>(false)
+  const [errorMessage, setErrorMessage] = useState<string>('')
 
   const onSubmitHandler = async (event: React.FormEvent) => {
     event.preventDefault()
+
+    setErrorMessage('')
 
     if (label.trim() === '' || imgUrl.trim() === '') {
       setLabelIsReq(true)
@@ -21,21 +24,29 @@ export default function AddNewPhoto() {
       return
     }
 
-    const response = await fetch('/api/postImage', {
-      method: 'POST',
-      body: JSON.stringify({
-        label,
-        imgUrl,
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
+    try {
+      const response = await fetch('/api/postImage', {
+        method: 'POST',
+        body: JSON.stringify({
+          label,
+          imgUrl,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
 
-    if (response.ok) {
-      setLabelIsReq(false)
-      setImgUrlIsReq(false)
-      showModalHandler()
+      if (response.ok) {
+        setLabelIsReq(false)
+        setImgUrlIsReq(false)
+        showModalHandler()
+      }
+      const data = await response.json()
+      if (!response.ok) {
+        throw new Error(data.message.error.message)
+      }
+    } catch (err: any) {
+      setErrorMessage(err.message)
     }
   }
 
@@ -77,8 +88,9 @@ export default function AddNewPhoto() {
           isRequired={imgUrlIsReq}
         />
         <div className='text-right'>
+          <p className='text-sm text-left text-[#ff4136]'>{errorMessage}</p>
           <FormBtn text='Cancel' onClickHandler={showModalHandler} />
-          <FormBtn text='Submit' />
+          <FormBtn text='Submit' onClickHandler={() => null} />
         </div>
       </form>
     </Modal>
