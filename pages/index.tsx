@@ -22,9 +22,25 @@ export async function getStaticProps() {
   )
 
   const data = await response.json()
+  const transformedData = data.resources
+    .map((img: any) => {
+      const dateTimeArr = img.created_at.split('T')
+      const publicLabel = img.public_id.split('/')
+      return {
+        id: img.asset_id,
+        label: publicLabel[1],
+        url: img.secure_url,
+        date: dateTimeArr[0],
+        time: dateTimeArr[1].replace('Z', ''),
+      }
+    })
+    .sort((a: any, b: any) => b.date.localeCompare(a.date) || b.time.localeCompare(a.time))
 
+  console.log(transformedData)
   return {
-    props: {},
+    props: {
+      images: transformedData,
+    },
     revalidate: 1,
   }
 }

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { Children, useContext, useState } from 'react'
 import { store } from '../../context/store'
 import FormBtn from '../form-btn/form-btn'
 import FormTitle from '../form-title/form-title'
@@ -42,8 +42,9 @@ export default function AddNewPhoto() {
         showModalHandler()
       }
       const data = await response.json()
+
       if (!response.ok) {
-        throw new Error(data.message.error.message)
+        throw new Error(data.message.error?.message ?? data.message)
       }
     } catch (err: any) {
       setErrorMessage(err.message)

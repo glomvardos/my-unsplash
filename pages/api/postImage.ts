@@ -18,6 +18,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     return
   }
 
+  const labelResponse = await fetch(
+    `https://${process.env.API_KEY}:${process.env.API_SECRET}@api.cloudinary.com/v1_1/${process.env.CLOUD_NAME}/resources/image/upload?prefix=unsplash`
+  )
+
+  const labelData = await labelResponse.json()
+
+  const isLabelExist = labelData.resources.some(
+    (img: any) => img.public_id.toLowerCase() === `unsplash/${label.toLowerCase()}`
+  )
+
+  if (isLabelExist) {
+    res.status(403).json({ message: `Label ${label} already exists` })
+    return
+  }
+
   const data = new FormData()
   data.append('file', imgUrl)
   data.append('upload_preset', 'unsplash')
