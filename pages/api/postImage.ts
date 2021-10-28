@@ -22,7 +22,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
   data.append('file', imgUrl)
   data.append('upload_preset', 'unsplash')
   data.append('folder', 'unsplash')
-  data.append('filename_override', label)
+  data.append('public_id', label)
   data.append('cloud_name', `${process.env.CLOUD_NAME}`)
 
   const response = await fetch(
