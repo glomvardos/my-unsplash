@@ -24,7 +24,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     if (result.result === 'ok') {
       res.status(200).json({ message: 'Image deleted' })
       return
-    } else {
+    } else if (error) {
       res.status(500).json({ message: 'Something went wrong' })
       return
     }
