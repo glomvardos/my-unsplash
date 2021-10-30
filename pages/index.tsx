@@ -8,7 +8,6 @@ import Images from '../components/images/images'
 const Home: NextPage = ({ images }: any) => {
   const { showModal } = useContext(store)
 
-  console.log(images)
   return (
     <>
       {showModal && <AddNewPhoto />}
