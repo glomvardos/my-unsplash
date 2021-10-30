@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import React, { useContext, useState } from 'react'
 import { store } from '../../context/store'
 import FormBtn from '../form-btn/form-btn'
@@ -12,6 +13,8 @@ export default function AddNewPhoto() {
   const [labelIsReq, setLabelIsReq] = useState<boolean>(false)
   const [imgUrlIsReq, setImgUrlIsReq] = useState<boolean>(false)
   const [errorMessage, setErrorMessage] = useState<string>('')
+
+  const router = useRouter()
 
   const onSubmitHandler = async (event: React.FormEvent) => {
     event.preventDefault()
@@ -45,6 +48,10 @@ export default function AddNewPhoto() {
 
       if (!response.ok) {
         throw new Error(data.message.error?.message ?? data.message)
+      }
+
+      if (response.ok) {
+        router.reload()
       }
     } catch (err: any) {
       setErrorMessage(err.message)

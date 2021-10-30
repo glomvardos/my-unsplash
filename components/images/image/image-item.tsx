@@ -1,8 +1,24 @@
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 import { useState } from 'react'
 
 export default function ImageItem({ url, label }: Props) {
   const [isMouseEntered, setIsMouseEntered] = useState<boolean>(false)
+  const router = useRouter()
+
+  const deleteHandler = async () => {
+    const response = await fetch(`/api/deleteImage`, {
+      method: 'POST',
+      body: JSON.stringify({ label }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+
+    if (response.ok) {
+      router.reload()
+    }
+  }
 
   return (
     <div
@@ -23,7 +39,15 @@ export default function ImageItem({ url, label }: Props) {
           {label}
         </p>
       )}
-      <button className='absolute z-10 top-[18px] right-[18px]'>delete</button>
+      {isMouseEntered && (
+        <button
+          type='button'
+          className='absolute z-10 text-xs font-medium border border-solid border-[#EB5757] px-[15px] py-[5px] rounded-[38px] top-[18px] right-[18px] text-[#EB5757]'
+          onClick={deleteHandler}
+        >
+          delete
+        </button>
+      )}
     </div>
   )
 }
