@@ -3,14 +3,17 @@ import { useContext } from 'react'
 import Header from '../components/header/header'
 import AddNewPhoto from '../components/add-new-photo/add-new-photo'
 import { store } from '../context/store'
+import Images from '../components/images/images'
 
 const Home: NextPage = ({ images }: any) => {
   const { showModal } = useContext(store)
 
+  console.log(images)
   return (
     <>
       {showModal && <AddNewPhoto />}
       <Header />
+      <Images images={images} />
     </>
   )
 }
