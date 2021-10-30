@@ -9,7 +9,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <StoreProvider>
       <Head>
         <link rel='shortcut icon' href='/favicon.png' />
-        <title>My unsplash</title>
+        <title>My Unsplash</title>
       </Head>
       <Layout>
         <Component {...pageProps} />
