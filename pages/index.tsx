@@ -19,7 +19,7 @@ const Home: NextPage = ({ images }: any) => {
 
 export default Home
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const response = await fetch(
     `https://${process.env.API_KEY}:${process.env.API_SECRET}@api.cloudinary.com/v1_1/${process.env.CLOUD_NAME}/resources/image/upload?prefix=unsplash`
   )
@@ -43,6 +43,5 @@ export async function getStaticProps() {
     props: {
       images: transformedData,
     },
-    revalidate: 1,
   }
 }

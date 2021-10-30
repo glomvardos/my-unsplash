@@ -43,15 +43,12 @@ export default function AddNewPhoto() {
         setLabelIsReq(false)
         setImgUrlIsReq(false)
         showModalHandler()
+        router.reload()
       }
       const data = await response.json()
 
       if (!response.ok) {
         throw new Error(data.message.error?.message ?? data.message)
-      }
-
-      if (response.ok) {
-        router.reload()
       }
     } catch (err: any) {
       setErrorMessage(err.message)
