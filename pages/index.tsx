@@ -4,8 +4,9 @@ import Header from '../components/header/header'
 import AddNewPhoto from '../components/add-new-photo/add-new-photo'
 import { store } from '../context/store'
 
-const Home: NextPage = () => {
+const Home: NextPage = ({ images }: any) => {
   const { showModal } = useContext(store)
+
   return (
     <>
       {showModal && <AddNewPhoto />}
@@ -36,7 +37,6 @@ export async function getStaticProps() {
     })
     .sort((a: any, b: any) => b.date.localeCompare(a.date) || b.time.localeCompare(a.time))
 
-  console.log(transformedData)
   return {
     props: {
       images: transformedData,
