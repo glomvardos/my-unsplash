@@ -11,7 +11,7 @@ const Home: NextPage = ({ images }: any) => {
   return (
     <>
       {showModal && <AddNewPhoto />}
-      <Header />
+      <Header images={images} />
       <Images images={images} />
     </>
   )
