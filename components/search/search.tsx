@@ -4,8 +4,10 @@ import { BiSearchAlt2 } from 'react-icons/bi'
 export default function Search({ images }: Props) {
   const [enteredInput, setEnteredInput] = useState<string>('')
 
-  const onSearchHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
+
+    setEnteredInput(value)
   }
 
   return (
@@ -16,7 +18,7 @@ export default function Search({ images }: Props) {
         type='text'
         placeholder='Search by name'
         value={enteredInput}
-        onChange={e => setEnteredInput(e.target.value)}
+        onChange={handleSearch}
       />
     </div>
   )
