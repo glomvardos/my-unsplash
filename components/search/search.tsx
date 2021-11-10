@@ -1,4 +1,4 @@
-import { ReactEventHandler, useState } from 'react'
+import { useState } from 'react'
 import { BiSearchAlt2 } from 'react-icons/bi'
 
 export default function Search({ images }: Props) {
