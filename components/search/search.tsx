@@ -7,6 +7,8 @@ export default function Search({ images }: Props) {
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
 
+    const result = []
+
     setEnteredInput(value)
   }
 
