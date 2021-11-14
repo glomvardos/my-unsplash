@@ -1,13 +1,21 @@
 import { useState } from 'react'
 import { BiSearchAlt2 } from 'react-icons/bi'
+import { Properties } from '../interfaces/images.interface'
 
-export default function Search({ images }: Props) {
+export default function Search({ images, setAllImages }: Props) {
   const [enteredInput, setEnteredInput] = useState<string>('')
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
 
-    const result = []
+    if (value !== '') {
+      const labelResults = images.filter(image =>
+        image.label.toLowerCase().startsWith(value.toLowerCase())
+      )
+      setAllImages(labelResults)
+    } else {
+      setAllImages(images)
+    }
 
     setEnteredInput(value)
   }
@@ -26,12 +34,7 @@ export default function Search({ images }: Props) {
   )
 }
 
-interface Properties {
-  id: string
-  label: string
-  url: string
-}
-
 type Props = {
   images: Array<Properties>
+  setAllImages: (results: Properties[]) => void
 }

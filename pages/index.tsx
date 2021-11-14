@@ -1,18 +1,21 @@
 import type { NextPage } from 'next'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import Header from '../components/header/header'
 import AddNewPhoto from '../components/add-new-photo/add-new-photo'
 import { store } from '../context/store'
 import Images from '../components/images/images'
 
+import { Properties } from '../components/interfaces/images.interface'
+
 const Home: NextPage = ({ images }: any) => {
   const { showModal } = useContext(store)
+  const [allImages, setAllImages] = useState<Properties[]>(images)
 
   return (
     <>
       {showModal && <AddNewPhoto />}
-      <Header images={images} />
-      <Images images={images} />
+      <Header images={images} setAllImages={setAllImages} />
+      <Images images={allImages} />
     </>
   )
 }
